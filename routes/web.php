@@ -16,3 +16,8 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->post('/add-category', 'CategoryController@store'); //insert a category
+$router->get('/categories', 'CategoryController@select'); //get all category
+$router->post('/update-category', 'CategoryController@update'); //update a category
+$router->post('/delete-category', 'CategoryController@delete'); //delete a category

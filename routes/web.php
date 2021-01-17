@@ -17,7 +17,20 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->post('/add-category', 'CategoryController@store'); //insert a category
+//User
+$router->post('/register', 'UserController@onRegistration'); //insert a user
+$router->post('/login', 'LoginController@onLogin'); //login user
+
+
+//Category Router
+$router->post('/add-category', ['middleware' => 'auth', 'uses' => 'CategoryController@store']); //insert a category
 $router->get('/categories', 'CategoryController@select'); //get all category
-$router->post('/update-category', 'CategoryController@update'); //update a category
-$router->post('/delete-category', 'CategoryController@delete'); //delete a category
+$router->post('/update-category', ['middleware' => 'auth', 'uses' => 'CategoryController@update']); //update a category
+$router->post('/delete-category', ['middleware' => 'auth', 'uses' => 'CategoryController@delete']); //delete a category
+
+
+//Post Router
+$router->post('/add-post', ['middleware' => 'auth', 'uses' => 'PostController@store']); //insert a post
+$router->get('/posts', 'PostController@select'); //get all post
+$router->post('/update-post', ['middleware' => 'auth', 'uses' => 'PostController@update']); //update a category
+$router->post('/delete-post', ['middleware' => 'auth', 'uses' => 'PostController@delete']); //delete a category
